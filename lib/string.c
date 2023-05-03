@@ -7,6 +7,21 @@
 #include <stddef.h>
 #include "string.h"
 
+uint16_t string_clear(char *str, uint16_t str_size) {
+    // check if str is valid
+    if(str == NULL) {
+        // error, invalid
+        return str_size;
+    }
+    // check if str_size is valid
+    if(str_size == 0) {
+        // error, invalid
+        return str_size;
+    }
+    str[0] = STRING_TERMINATION;
+    return 0;
+}
+
 uint16_t string_find_end_pos(char *str, uint16_t str_size) {
     uint16_t pos;
     // check if str is valid
@@ -179,4 +194,28 @@ uint16_t string_delete_from_tail(char *str, uint16_t str_size, uint16_t nb_chars
     }
     // nothing to copy, just set termination
     str[tail_pos] = STRING_TERMINATION;
+}
+
+uint16_t string_append_uint8(char *str, uint16_t str_size, uint8_t num) {
+    uint16_t pos, copy_pos;
+    // check if str is valid
+    if(str == NULL) {
+        // error, invalid
+        return str_size;
+    }
+    // check if str_size is valid
+    if(str_size == 0) {
+        // error, invalid
+        return str_size;
+    }
+
+    pos = string_find_end_pos(str, str_size);
+    if(pos == str_size) {
+        // error, already at the end, no more space available
+        // did not do anything
+        return str_size;
+    }
+    
+    
+    return 4;
 }

@@ -165,7 +165,7 @@ int8_t test04(void) {
 // testing string_delete_from_head
 int8_t test05(void) {
     uint16_t pos;
-    printf(" + test04: string_delete_from_tail()\n");
+    printf(" + test05: string_delete_from_tail()\n");
     pos = string_find_end_pos(test_string, TEST_STRING_SIZE);
     printf("   + 01: pos == %d, (pos: %d)\n", 30, pos);
     printf("     test_string: %s\n", test_string);
@@ -191,6 +191,65 @@ int8_t test05(void) {
     return TEST_SUCCESSFUL;
 }
 
+// testing string_clear
+int8_t test06(void) {
+    uint16_t pos;
+    printf(" + test06: string_clear()\n");
+    pos = string_find_end_pos(test_string, TEST_STRING_SIZE);
+    printf("   + 01: pos == %d, (pos: %d)\n", 10, pos);
+    printf("     test_string: %s\n", test_string);
+    if(pos != 10) {
+        return TEST_FAILED;
+    }
+
+    string_clear(test_string, TEST_STRING_SIZE);
+    pos = string_find_end_pos(test_string, TEST_STRING_SIZE);
+    printf("   + 02: pos == %d, (pos: %d)\n", 0, pos);
+    printf("     test_string: %s\n", test_string);
+    if(pos != 0) {
+        return TEST_FAILED;
+    }
+    return TEST_SUCCESSFUL;
+}
+
+// testing string_append_uint8
+int8_t test07(void) {
+    uint16_t pos;
+    printf(" + test07: string_append_uint8()\n");
+    pos = string_find_end_pos(test_string, TEST_STRING_SIZE);
+    printf("   + 01: pos == %d, (pos: %d)\n", 0, pos);
+    printf("     test_string: %s\n", test_string);
+    if(pos != 0) {
+        return TEST_FAILED;
+    }
+
+    string_append(test_string, TEST_STRING_SIZE, "uint8: ");
+    pos = string_find_end_pos(test_string, TEST_STRING_SIZE);
+    printf("   + 02: pos == %d, (pos: %d)\n", 7, pos);
+    printf("     test_string: %s\n", test_string);
+    if(pos != 7) {
+        return TEST_FAILED;
+    }
+
+    string_append_uint8(test_string, TEST_STRING_SIZE, 8);
+    pos = string_find_end_pos(test_string, TEST_STRING_SIZE);
+    printf("   + 03: pos == %d, (pos: %d)\n", 7+1, pos);
+    printf("     test_string: %s\n", test_string);
+    if(pos != 7+1) {
+        return TEST_FAILED;
+    }
+    
+    string_append(test_string, TEST_STRING_SIZE, ", ");
+    pos = string_find_end_pos(test_string, TEST_STRING_SIZE);
+    printf("   + 04: pos == %d, (pos: %d)\n", 7+1+2, pos);
+    printf("     test_string: %s\n", test_string);
+    if(pos != 7+1+2) {
+        return TEST_FAILED;
+    }
+
+    return TEST_SUCCESSFUL;
+}
+
 int main(void) {
     printf("testing string functions\n");
     test_string[0] = 0;
@@ -199,6 +258,8 @@ int main(void) {
     test_eval_result(test03());
     test_eval_result(test04());
     test_eval_result(test05());
+    test_eval_result(test06());
+    test_eval_result(test07());
 
     return 0;
 }

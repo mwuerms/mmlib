@@ -12,6 +12,14 @@
 #define STRING_TERMINATION '\0'
 
 /**
+ * clear the string, set STRING_TERMINATION to head (position = 0) ot the string
+ * @param   str         string to find the end in
+ * @param   str_size    size of the string
+ * @return  pos = 0: valid position
+ */
+uint16_t string_clear(char *str, uint16_t str_size);
+
+/**
  * find the end position of a given string, '\0'-terminated
  * @param   str         string to find the end in
  * @param   str_size    size of the string
@@ -78,6 +86,12 @@ uint16_t string_delete_from_tail(char *str, uint16_t str_size, uint16_t nb_chars
 
 /**
  * append a number in uint8_t as chars to the destination string
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   num         number to append
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
  */
 uint16_t string_append_uint8(char *str, uint16_t str_size, uint8_t num);
 
