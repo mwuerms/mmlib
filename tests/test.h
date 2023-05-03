@@ -14,6 +14,10 @@
 #define TEST_SUCCESSFUL 0
 #define TEST_FAILED -1
 
+// prototype of test function
+int8_t testXY(void);
+void test_eval_result(int8_t res);
+
 #endif // _MM_TEST_H_
 
 

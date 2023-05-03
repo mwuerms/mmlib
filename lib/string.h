@@ -31,15 +31,50 @@ uint16_t string_find_end_pos(char *str, uint16_t str_size);
  */
 uint16_t string_append(char *str, uint16_t str_size, char *str_append);
 
-/**
- * delete a given number of chars at the beginning (head) of the string
+/** 
+ * copy a string to de destination string, give position where to copy and copy string size
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   str_copy  string to copy
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
  */
-uint16_t string_delete_at_head(char *str, uint16_t str_size, uint16_t nb_chars);
+uint16_t string_copy_pos_size(char *str, uint16_t str_size, char *str_copy, uint16_t copy_to_pos, uint16_t copy_size);
 
 /**
- * delete a given number of chars at the end (tail) of the string
+ * delete a given number of chars from a given position of the string
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   del_pos     delete from position, must be < str_size
+ * @param   nb_chars    number of chars to delete
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
  */
-uint16_t string_delete_at_tail(char *str, uint16_t str_size, uint16_t nb_chars);
+uint16_t string_delete_from_position(char *str, uint16_t str_size, uint16_t del_pos, uint16_t nb_chars);
+
+/**
+ * delete a given number of chars from the head (position = 0) of the string
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   nb_chars    number of chars to delete
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
+ */
+uint16_t string_delete_from_head(char *str, uint16_t str_size, uint16_t nb_chars);
+
+/**
+ * delete a given number of chars from the tail (end) of the string
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   nb_chars    number of chars to delete
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
+ */
+uint16_t string_delete_from_tail(char *str, uint16_t str_size, uint16_t nb_chars);
 
 /**
  * append a number in uint8_t as chars to the destination string
