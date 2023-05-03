@@ -7,10 +7,21 @@ Martins Micro Library in standard C, for micro processors
 ## documentation
 
 see [readme](docs/readme.md)
+
 ## ideas, whishlist
 
-- linked list
-- fifo, queue
+- data management
+  - array list
+  - fifo, queue
+  - linked list
+- string functions
+  - uint8/16/32 to string
+  - int8/16/32 to string
+  - float to string, precision pro and post point :-)
+- communication, high level, hal is still needed, but should work with this api
+  - spi
+  - uart
+  - i2c/twi
 - memory management in fixed memory space
   - new
   - free, delete
