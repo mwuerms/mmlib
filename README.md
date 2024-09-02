@@ -2,6 +2,10 @@
 
 Martins Micro Library in standard C, for micro processors
 
+## standard c libraries
+
+mmlib uses c standard libraries, example: use `stdbool.h` and therefore `true` and `false` for instance.
+
 ## implemented and tested features
 
 ## documentation
