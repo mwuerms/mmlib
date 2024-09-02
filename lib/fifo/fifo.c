@@ -15,20 +15,21 @@ uint16_t fifo_inc(uint16_t pos, uint16_t size) {
 }
 
 // - public functions ----------------------------------------------------------
-uint16_t fifo_init(fifo_ctrl_t *f, uint16_t size) {
+uint16_t fifo_init(fifo_t *f, void *data, uint16_t size) {
     if(f == NULL) {
         // error, invalid pointer
         return false;
     }
+    f->data = data;
+    f->size = size;
     f->wr = 0;
     f->wr_proc = 0;
     f->rd = size-1;
     f->rd_proc = size-1;
-    f->size = size;
     return true;
 }
 
-uint16_t fifo_is_full(fifo_ctrl_t *f) {
+uint16_t fifo_is_full(fifo_t *f) {
     if(f == NULL) {
         // error, invalid pointer
         return false;
@@ -40,7 +41,7 @@ uint16_t fifo_is_full(fifo_ctrl_t *f) {
     return false;
 }
 
-uint16_t fifo_is_empty(fifo_ctrl_t *f) {
+uint16_t fifo_is_empty(fifo_t *f) {
     uint16_t rd_next;
     if(f == NULL) {
         // error, invalid pointer
@@ -54,7 +55,7 @@ uint16_t fifo_is_empty(fifo_ctrl_t *f) {
     return false;
 }
 
-uint16_t fifo_try_append(fifo_ctrl_t *f) {
+uint16_t fifo_try_append(fifo_t *f) {
     if(f == NULL) {
         // error, invalid pointer
         return false;
@@ -67,7 +68,7 @@ uint16_t fifo_try_append(fifo_ctrl_t *f) {
     return true;
 }
 
-uint16_t fifo_finalize_append(fifo_ctrl_t *f) {
+uint16_t fifo_finalize_append(fifo_t *f) {
     if(f == NULL) {
         // error, invalid pointer
         return false;
@@ -76,7 +77,7 @@ uint16_t fifo_finalize_append(fifo_ctrl_t *f) {
     return true;
 }
 
-uint16_t fifo_try_get(fifo_ctrl_t *f) {
+uint16_t fifo_try_get(fifo_t *f) {
     if(f == NULL) {
         // error, invalid pointer
         return false;
@@ -89,7 +90,7 @@ uint16_t fifo_try_get(fifo_ctrl_t *f) {
     return true;
 }
 
-uint16_t fifo_finalize_get(fifo_ctrl_t *f) {
+uint16_t fifo_finalize_get(fifo_t *f) {
     if(f == NULL) {
         // error, invalid pointer
         return false;
