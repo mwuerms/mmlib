@@ -2,15 +2,15 @@
  * Martin Egli
  * 2023-05-03
  * mmlib: testing sting functions
- * + compile: gcc ../lib/string.c teststring.c test.c -o teststring.exe
+ * + compile: gcc string.c teststring.c ../test/test.c -o teststring.exe
  * + run: ./teststring.exe
  */
 
 #include <stdio.h>
-#include "test.h"
+#include "../test/test.h"
 
 // code under test
-#include "../lib/string.h"
+#include "string.h"
 
 #define TEST_STRING_SIZE  128
 char test_string[TEST_STRING_SIZE];
