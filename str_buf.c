@@ -231,209 +231,34 @@ uint16_t str_buf_delete_from_tail(char *str, uint16_t str_size, uint16_t nb_char
 }
 
 uint16_t str_buf_append_uint8(char *str, uint16_t str_size, uint8_t num) {
-    uint16_t pos;
-    uint16_t digit_pos, use_char;
-	int16_t digits[] = {100, 10, 1};
-	uint8_t digit_value;
-
-    // check if str is valid
-    if(str == NULL) {
-        // error, invalid
-        return str_size;
-    }
-    // check if str_size is valid
-    if(str_size == 0) {
-        // error, invalid
-        return str_size;
-    }
-
-    pos = str_buf_find_end_pos(str, str_size);
-    if(pos == str_size) {
-        // error, already at the end, no more space available
-        // did not do anything
-        return str_size;
-    }
-
-    if(num == 0) {
-        // only append '0', and done here
-        pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0');
-        return pos;
-    }
-
-	use_char = 0;
-	for(digit_pos = 0; digit_pos < (sizeof(digits)/sizeof(digits[0])); digit_pos++) {
-		digit_value = (uint8_t)(num/digits[digit_pos]);
-		if((digit_value != 0) || (use_char != 0)) {
-			use_char = 1;
-			pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0'+digit_value);
-			if(pos == str_size) {
-                // pos at the end: done, no more space available
-                return str_size;
-            }
-			num -= digit_value * digits[digit_pos];
-		}
-	}
-    return pos;
+    return str_buf_append_uint32_nb_digits(str, str_size, (uint32_t)num, 3);
 }
 
 uint16_t str_buf_append_int8(char *str, uint16_t str_size, int8_t num) {
-    uint16_t pos;
-    uint16_t digit_pos, use_char;
-	int16_t digits[] = {100, 10, 1};
-	uint8_t digit_value;
-
-    // check if str is valid
-    if(str == NULL) {
-        // error, invalid
-        return str_size;
-    }
-    // check if str_size is valid
-    if(str_size == 0) {
-        // error, invalid
-        return str_size;
-    }
-
-    pos = str_buf_find_end_pos(str, str_size);
-    if(pos == str_size) {
-        // error, already at the end, no more space available
-        // did not do anything
-        return str_size;
-    }
-
-    if(num < 0) {
-        num *= -1;
-        pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '-');
-        if(pos == str_size) {
-            // pos at the end: done, no more space available
-            return str_size;
-        }
-    }
-    if(num == 0) {
-        // only append '0', and done here
-        pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0');
-        return pos;
-    }
-
-	use_char = 0;
-	for(digit_pos = 0; digit_pos < (sizeof(digits)/sizeof(digits[0])); digit_pos++) {
-		digit_value = (uint8_t)(num/digits[digit_pos]);
-		if((digit_value != 0) || (use_char != 0)) {
-			use_char = 1;
-			pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0'+digit_value);
-			if(pos == str_size) {
-                // pos at the end: done, no more space available
-                return str_size;
-            }
-			num -= digit_value * digits[digit_pos];
-		}
-	}
-    return pos;
+    return str_buf_append_int32_nb_digits(str, str_size, (int32_t)num, 3);
 }
 
 uint16_t str_buf_append_uint16(char *str, uint16_t str_size, uint16_t num) {
-    uint16_t pos;
-    uint16_t digit_pos, use_char;
-	int16_t digits[] = {10000, 1000, 100, 10, 1};
-	uint8_t digit_value;
-
-    // check if str is valid
-    if(str == NULL) {
-        // error, invalid
-        return str_size;
-    }
-    // check if str_size is valid
-    if(str_size == 0) {
-        // error, invalid
-        return str_size;
-    }
-
-    pos = str_buf_find_end_pos(str, str_size);
-    if(pos == str_size) {
-        // error, already at the end, no more space available
-        // did not do anything
-        return str_size;
-    }
-
-    if(num == 0) {
-        // only append '0', and done here
-        pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0');
-        return pos;
-    }
-
-	use_char = 0;
-	for(digit_pos = 0; digit_pos < (sizeof(digits)/sizeof(digits[0])); digit_pos++) {
-		digit_value = (uint8_t)(num/digits[digit_pos]);
-		if((digit_value != 0) || (use_char != 0)) {
-			use_char = 1;
-			pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0'+digit_value);
-			if(pos == str_size) {
-                // pos at the end: done, no more space available
-                return str_size;
-            }
-			num -= digit_value * digits[digit_pos];
-		}
-	}
-    return pos;
+    return str_buf_append_uint32_nb_digits(str, str_size, (uint32_t)num, 5);
 }
 
 uint16_t str_buf_append_int16(char *str, uint16_t str_size, int16_t num) {
-    uint16_t pos;
-    uint16_t digit_pos, use_char;
-	int16_t digits[] = {10000, 1000, 100, 10, 1};
-	uint8_t digit_value;
-
-    // check if str is valid
-    if(str == NULL) {
-        // error, invalid
-        return str_size;
-    }
-    // check if str_size is valid
-    if(str_size == 0) {
-        // error, invalid
-        return str_size;
-    }
-
-    pos = str_buf_find_end_pos(str, str_size);
-    if(pos == str_size) {
-        // error, already at the end, no more space available
-        // did not do anything
-        return str_size;
-    }
-
-    if(num < 0) {
-        num *= -1;
-        pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '-');
-        if(pos == str_size) {
-            // pos at the end: done, no more space available
-            return str_size;
-        }
-    }
-    if(num == 0) {
-        // only append '0', and done here
-        pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0');
-        return pos;
-    }
-
-	use_char = 0;
-	for(digit_pos = 0; digit_pos < (sizeof(digits)/sizeof(digits[0])); digit_pos++) {
-		digit_value = (uint8_t)(num/digits[digit_pos]);
-		if((digit_value != 0) || (use_char != 0)) {
-			use_char = 1;
-			pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0'+digit_value);
-			if(pos == str_size) {
-                // pos at the end: done, no more space available
-                return str_size;
-            }
-			num -= digit_value * digits[digit_pos];
-		}
-	}
-    return pos;
+	return str_buf_append_int32_nb_digits(str, str_size, (int32_t)num, 5);
 }
 
 uint16_t str_buf_append_uint32(char *str, uint16_t str_size, uint32_t num) {
+    return str_buf_append_uint32_nb_digits(str, str_size, (uint32_t)num, 10);
+}
+
+uint16_t str_buf_append_int32(char *str, uint16_t str_size, int32_t num) {
+    return str_buf_append_int32_nb_digits(str, str_size, (int32_t)num, 10);
+}
+
+uint16_t str_buf_append_uint32_nb_digits(char *str, uint16_t str_size, uint32_t num, uint16_t nb_digits) {
     uint16_t pos;
     uint16_t digit_pos, use_char;
 	int32_t digits[] = {1000000000, 100000000, 10000000, 1000000, 100000, 10000, 1000, 100, 10, 1};
+    uint16_t total_nb_digits = (sizeof(digits)/sizeof(digits[0]));
 	uint8_t digit_value;
 
     // check if str is valid
@@ -446,22 +271,28 @@ uint16_t str_buf_append_uint32(char *str, uint16_t str_size, uint32_t num) {
         // error, invalid
         return str_size;
     }
-
     pos = str_buf_find_end_pos(str, str_size);
     if(pos == str_size) {
         // error, already at the end, no more space available
         // did not do anything
         return str_size;
     }
-
     if(num == 0) {
         // only append '0', and done here
         pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0');
         return pos;
     }
+    if(nb_digits == 0)  {
+        // ignore, do nothing
+        return pos;
+    }
+    if(nb_digits > total_nb_digits) {
+        // max nb of digits
+        nb_digits = total_nb_digits;
+    }
 
 	use_char = 0;
-	for(digit_pos = 0; digit_pos < (sizeof(digits)/sizeof(digits[0])); digit_pos++) {
+	for(digit_pos = (total_nb_digits - nb_digits); digit_pos < total_nb_digits; digit_pos++) {
 		digit_value = (uint8_t)(num/digits[digit_pos]);
 		if((digit_value != 0) || (use_char != 0)) {
 			use_char = 1;
@@ -476,10 +307,11 @@ uint16_t str_buf_append_uint32(char *str, uint16_t str_size, uint32_t num) {
     return pos;
 }
 
-uint16_t str_buf_append_int32(char *str, uint16_t str_size, int32_t num) {
+uint16_t str_buf_append_int32_nb_digits(char *str, uint16_t str_size, int32_t num, uint16_t nb_digits) {
     uint16_t pos;
     uint16_t digit_pos, use_char;
 	int32_t digits[] = {1000000000, 100000000, 10000000, 1000000, 100000, 10000, 1000, 100, 10, 1};
+    uint16_t total_nb_digits = (sizeof(digits)/sizeof(digits[0]));
 	uint8_t digit_value;
 
     // check if str is valid
@@ -492,14 +324,25 @@ uint16_t str_buf_append_int32(char *str, uint16_t str_size, int32_t num) {
         // error, invalid
         return str_size;
     }
-
     pos = str_buf_find_end_pos(str, str_size);
     if(pos == str_size) {
         // error, already at the end, no more space available
         // did not do anything
         return str_size;
     }
-
+    if(num == 0) {
+        // only append '0', and done here
+        pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0');
+        return pos;
+    }
+    if(nb_digits == 0)  {
+        // ignore, do nothing
+        return pos;
+    }
+    if(nb_digits > total_nb_digits) {
+        // max nb of digits
+        nb_digits = total_nb_digits;
+    }
     if(num < 0) {
         num *= -1;
         pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '-');
@@ -508,26 +351,7 @@ uint16_t str_buf_append_int32(char *str, uint16_t str_size, int32_t num) {
             return str_size;
         }
     }
-    if(num == 0) {
-        // only append '0', and done here
-        pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0');
-        return pos;
-    }
-
-	use_char = 0;
-	for(digit_pos = 0; digit_pos < (sizeof(digits)/sizeof(digits[0])); digit_pos++) {
-		digit_value = (uint8_t)(num/digits[digit_pos]);
-		if((digit_value != 0) || (use_char != 0)) {
-			use_char = 1;
-			pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0'+digit_value);
-			if(pos == str_size) {
-                // pos at the end: done, no more space available
-                return str_size;
-            }
-			num -= digit_value * digits[digit_pos];
-		}
-	}
-    return pos;
+    return str_buf_append_uint32_nb_digits(str, str_size, (uint32_t)num, nb_digits);
 }
 
 uint16_t str_buf_append_float(char *str, uint16_t str_size, float num, uint16_t post_presision) {
@@ -575,6 +399,73 @@ uint16_t str_buf_append_float(char *str, uint16_t str_size, float num, uint16_t 
         num *= 10.0f;
         digit_value = (uint8_t)num;
         num -= (float)digit_value;
+        pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0'+digit_value);
+        if(pos == str_size) {
+            // pos at the end: done, no more space available
+            return str_size;
+        }
+    }
+    return pos;
+}
+
+uint16_t str_buf_append_0x_hex_upper_case_nb_digits(char *str, uint16_t str_size, uint32_t num, uint16_t nb_digits) {
+    uint16_t pos;
+    uint16_t digit_pos;
+    uint16_t total_nb_digits = sizeof(uint32_t)*2;
+    uint8_t digit_value;
+
+    // check if str is valid
+    if(str == NULL) {
+        // error, invalid
+        return str_size;
+    }
+    // check if str_size is valid
+    if(str_size == 0) {
+        // error, invalid
+        return str_size;
+    }
+    pos = str_buf_find_end_pos(str, str_size);
+    if(pos == str_size) {
+        // error, already at the end, no more space available
+        // did not do anything
+        return str_size;
+    }
+    if(num == 0) {
+        // only append '0', and done here
+        pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0');
+        if(pos == str_size) {
+            // pos at the end: done, no more space available
+            return str_size;
+        }
+        pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, 'x');
+        if(pos == str_size) {
+            // pos at the end: done, no more space available
+            return str_size;
+        }
+        pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0');
+        return pos;
+    }
+    if(nb_digits == 0)  {
+        // ignore, do nothing
+        return pos;
+    }
+    if(nb_digits > total_nb_digits) {
+        // max nb of digits
+        nb_digits = total_nb_digits;
+    }
+    pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0');
+    if(pos == str_size) {
+            // pos at the end: done, no more space available
+            return str_size;
+        }
+    pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, 'x');
+    if(pos == str_size) {
+            // pos at the end: done, no more space available
+            return str_size;
+        }
+    for(digit_pos = (total_nb_digits - nb_digits); digit_pos < total_nb_digits; digit_pos++) {
+        digit_value = 0;
+		// append '0' at the beginning as anyway
         pos = str_buf_append_char_inc_pos(&str[pos], str_size, pos, '0'+digit_value);
         if(pos == str_size) {
             // pos at the end: done, no more space available

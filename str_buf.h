@@ -108,37 +108,108 @@ uint16_t str_buf_append_uint8(char *str, uint16_t str_size, uint8_t num);
 
 /**
  * append a number in int8_t as chars with sign (-='-', +=' ') to the destination string
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   num         number to append
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
  */
 uint16_t str_buf_append_int8(char *str, uint16_t str_size, int8_t num);
 
 /**
  * append a number in uint16_t as chars to the destination string
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   num         number to append
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
  */
 uint16_t str_buf_append_uint16(char *str, uint16_t str_size, uint16_t num);
 
 /**
  * append a number in int16_t as chars with sign (-='-', +=' ') to the destination string
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   num         number to append
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
  */
 uint16_t str_buf_append_int16(char *str, uint16_t str_size, int16_t num);
 
 /**
  * append a number in uint32_t as chars to the destination string
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   num         number to append
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
  */
 uint16_t str_buf_append_uint32(char *str, uint16_t str_size, uint32_t num);
 
 /**
  * append a number in int32_t as chars with sign (-='-', +=' ') to the destination string
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   num         number to append
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
  */
 uint16_t str_buf_append_int32(char *str, uint16_t str_size, int32_t num);
 
 /**
+ * append a number in uint32_t as chars to the destination string
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   num         number to append
+ * @param   nb_digits   number of digits to use
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
+ */
+uint16_t str_buf_append_uint32_nb_digits(char *str, uint16_t str_size, uint32_t num, uint16_t nb_digits);
+
+/**
+ * append a number in int32_t as chars with sign (-='-', +=' ') to the destination string
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   num         number to append
+ * @param   nb_digits   number of digits to use
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
+ */
+uint16_t str_buf_append_int32_nb_digits(char *str, uint16_t str_size, int32_t num, uint16_t nb_digits);
+
+/**
  * append a number in float as chars with sign (-='-', +=' ') to the destination string
  * post point presision = number of chars after '.'
+ * 
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   num         number to append
+ * @param   nb_digits   number of digits to use
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
  */
 uint16_t str_buf_append_float(char *str, uint16_t str_size, float num, uint16_t post_presision);
 
 /**
+ * append a number in hex as chars to the destination string in upper case, prepend with "0x"
+ * @param   str         destination string to append to, this string will be changed
+ * @param   str_size    size of the destination string
+ * @param   num         number to append
+ * @param   nb_digits   number of digits to use
+ * @return  pos, end position in string
+ *          = 0 ... x: valid position
+ *          = str_size: appended as much as possible, but reached the end of destination string
  * 
  */
+uint16_t str_buf_append_0x_hex_upper_case_nb_digits(char *str, uint16_t str_size, uint32_t num, uint16_t nb_digits);
 
 #endif // _MM_str_buf_H_

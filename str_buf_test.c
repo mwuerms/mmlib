@@ -708,6 +708,38 @@ int8_t test13(void) {
     return TEST_SUCCESSFUL;
 }
 
+// testing str_buf_append_float
+int8_t test14(void) {
+    uint16_t pos, check_pos;
+    printf(" + test13: str_buf_append_0x_hex_upper_case_nb_digits()\n");
+    pos = str_buf_find_end_pos(test_string, TEST_STRING_SIZE);
+    check_pos = 0;
+    printf("   + 01: pos == %d, (pos: %d)\n", check_pos, pos);
+    printf("     test_string: %s\n", test_string);
+    if(pos != check_pos) {
+        return TEST_FAILED;
+    }
+    str_buf_append_string(test_string, TEST_STRING_SIZE, "hex: ");
+    pos = str_buf_find_end_pos(test_string, TEST_STRING_SIZE);
+    check_pos += 5;
+    printf("   + 02: pos == %d, (pos: %d)\n", check_pos, pos);
+    printf("     test_string: %s\n", test_string);
+    if(pos != check_pos) {
+        return TEST_FAILED;
+    }
+    str_buf_append_0x_hex_upper_case_nb_digits(test_string, TEST_STRING_SIZE, 0, 4);
+    pos = str_buf_find_end_pos(test_string, TEST_STRING_SIZE);
+    check_pos += 3;
+    printf("   + 03: pos == %d, (pos: %d)\n", check_pos, pos);
+    printf("     test_string: %s\n", test_string);
+    if(pos != check_pos) {
+        return TEST_FAILED;
+    }
+
+    // add more tests here
+    
+    return TEST_SUCCESSFUL;
+}
 
 int main(void) {
     printf("testing string functions\n");
@@ -741,5 +773,8 @@ int main(void) {
     str_buf_clear(test_string, TEST_STRING_SIZE);
     test_eval_result(test13());
 
+    str_buf_clear(test_string, TEST_STRING_SIZE);
+    test_eval_result(test14());
+    
     return 0;
 }
