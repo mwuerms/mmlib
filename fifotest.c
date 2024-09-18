@@ -1,7 +1,8 @@
 /**
  * Martin Egli
  * 2023-09-02
- * mmlib: testing fifo functions
+ * mmlib https://github.com/mwuerms/mmlib
+ * testing fifo functions
  * + compile: gcc fifo.c testfifo.c ../test/test.c -o testfifo.exe
  * + run: ./testfifo.exe
  */

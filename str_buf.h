@@ -1,7 +1,8 @@
 /**
  * Martin Egli
  * 2023-05-03
- * mmlib: str_buf string buffer functions
+ * mmlib https://github.com/mwuerms/mmlib
+ * str_buf string buffer functions
  */
 
 #ifndef _MM_str_buf_H_

@@ -1,7 +1,8 @@
 /**
  * Martin Egli
  * 2023-09-02
- * mmlib: fifo functions
+ * mmlib https://github.com/mwuerms/mmlib
+ * fifo functions
  */
 
 #ifndef _MM_FIFO_H_

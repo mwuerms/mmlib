@@ -1,7 +1,8 @@
 /**
  * Martin Egli
  * 2023-05-03
- * mmlib: test functions
+ * mmlib https://github.com/mwuerms/mmlib
+ * test functions
  */
 #include <stdio.h>
 #include "test.h"

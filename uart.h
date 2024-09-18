@@ -1,7 +1,8 @@
 /**
  * Martin Egli
  * 2023-09-02
- * mmlib: basic uart functions without hal
+ * mmlib https://github.com/mwuerms/mmlib
+ * basic uart functions without hal
  *   these functions actually do not work as they lack hal, they are intended
  *   as a basic structure.
  */

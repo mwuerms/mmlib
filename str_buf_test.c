@@ -1,7 +1,8 @@
 /**
  * Martin Egli
  * 2023-05-03
- * mmlib: testing sting functions
+ * mmlib https://github.com/mwuerms/mmlib
+ * testing sting functions
  * + compile: gcc str_buf.c str_buf_test.c test.c -o str_buf_test.exe
  * + run: ./str_buf_test.exe
  */
