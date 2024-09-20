@@ -8,8 +8,8 @@
 #include "times.h"
 
 // - private variables ---------------------------------------------------------
-// 0: jan, 1: feb, 2: mar, 3: apr, 4: may, 5: jun, 6: jul, 7: aug, 8: sep, 9: oct, 10: nov, 11: dec
-static const uint16_t days_in_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+// 0: unused, 1:jan, 2: feb, 3: mar, 4: apr, 5: may, 6: jun, 7: jul, 8: aug, 9: sep, 10: oct, 11: nov, 12: dec
+static const uint16_t days_in_month[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 // - private functions ---------------------------------------------------------
 /**
@@ -43,7 +43,18 @@ uint32_t times_yyyymmdd_to_days(uint16_t year, uint8_t month, uint8_t day) {
 }
 
 uint32_t times_days_to_yyyymmdd(uint32_t days, uint16_t *year, uint8_t *month, uint8_t *day) {
-    return 0;
+    uint16_t y;
+    uint8_t m, d, is_leap;
+    days = times_days_to_yyyy(days, &y);
+    is_leap = is_leap_year(y);
+    days = times_days_to_mm(days, &m, is_leap);
+    d = days +1;
+    days -= d - 1;
+
+    *year = y;
+    *month = m;
+    *day = d;
+    return days;
 }
 
 static uint32_t days_in_year(uint16_t year) {
@@ -69,7 +80,7 @@ uint32_t times_days_to_yyyy(uint32_t days, uint16_t *year) {
     uint32_t days_check;
     uint16_t y = 2000;
     
-    days_check += days_in_year(y);
+    days_check = days_in_year(y);
     if(days < days_check) {
         // not enough for the 1st year (2000), so stop already
         *year = y;
@@ -85,11 +96,44 @@ uint32_t times_days_to_yyyy(uint32_t days, uint16_t *year) {
 }
 
 uint32_t times_mm_to_days(uint8_t month, uint8_t is_leap) {
-    return 0;
+    uint32_t days = 0;
+    if(month <= 1) {
+        // invalid or jan
+        return 0;
+    }
+    if(month > 12) {
+        // more than dec
+        return 0;
+    }
+    for(month--;month != 0; month--) {
+        days += days_in_month[month];
+        if((month == 2) && (is_leap == true)) {
+            days++;
+        }
+    }
+    return days;
 }
 
-uint8_t times_days_to_mm(uint32_t days, uint8_t is_leap) {
-    return 0;
+uint32_t times_days_to_mm(uint32_t days, uint8_t *month, uint8_t is_leap) {
+    uint32_t days_check;
+    uint8_t m = 1;
+
+    for(m = 1; m < 12; m++) {
+        days_check = days_in_month[m];
+        if((m == 2) && (is_leap == true)) {
+            days_check++;
+        }
+        if(days >= days_check) {
+            // more than this month, continue
+            days -= days_check;
+        }
+        else {
+            // done here
+            break;
+        }
+    }
+    *month = m;
+    return days;
 }
 
 uint32_t times_secs_to_days(uint32_t secs) {

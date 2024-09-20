@@ -26,7 +26,7 @@ uint32_t times_yyyymmdd_to_days(uint16_t year, uint8_t month, uint8_t day);
  * @param   year    eg. 2024
  * @param   month   1: jan, 2: feb, ... 12: dec
  * @param   day     1 ... 31
- * @return
+ * @return  remaining days, should be zero, none left
  */
 uint32_t times_days_to_yyyymmdd(uint32_t days, uint16_t *year, uint8_t *month, uint8_t *day);
 
@@ -40,8 +40,8 @@ uint32_t times_yyyy_to_days(uint16_t year);
 /**
  * convert days back to a year
  * @param   days    to calc year from
- * @param  year     prt to store result
- * @return days left in that year
+ * @param   year    prt to store result
+ * @return  days left in that year
  */
 uint32_t times_days_to_yyyy(uint32_t days, uint16_t *year);
 
@@ -56,10 +56,11 @@ uint32_t times_mm_to_days(uint8_t month, uint8_t is_leap);
 /**
  * convert days back to a month
  * @param   days    to calc month from
+ * @param   month   ptr to store result, 1: jan, 2: feb, ... 12: dec
  * @param   is_leap this is a leap year
- * @return  month   eg. 2024
+ * @return days left in that year
  */
-uint8_t times_days_to_mm(uint32_t days, uint8_t is_leap);
+uint32_t times_days_to_mm(uint32_t days, uint8_t *month, uint8_t is_leap);
 
 /**
  * convert seconds to days
