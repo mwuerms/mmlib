@@ -40,9 +40,10 @@ uint32_t times_yyyy_to_days(uint16_t year);
 /**
  * convert days back to a year
  * @param   days    to calc year from
- * @return  year    eg. 2024
+ * @param  year     prt to store result
+ * @return days left in that year
  */
-uint16_t times_days_to_yyyy(uint32_t days);
+uint32_t times_days_to_yyyy(uint32_t days, uint16_t *year);
 
 /**
  * convert a month to days
