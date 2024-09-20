@@ -10,6 +10,7 @@
 // - private variables ---------------------------------------------------------
 // 0: unused, 1:jan, 2: feb, 3: mar, 4: apr, 5: may, 6: jun, 7: jul, 8: aug, 9: sep, 10: oct, 11: nov, 12: dec
 static const uint16_t days_in_month[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+static const uint32_t secs_in_day = 86400UL; // 24*60*30
 
 // - private functions ---------------------------------------------------------
 /**
@@ -137,25 +138,47 @@ uint32_t times_days_to_mm(uint32_t days, uint8_t *month, uint8_t is_leap) {
 }
 
 uint32_t times_secs_to_days(uint32_t secs) {
-    return 0;
+    return secs / secs_in_day;
 }
 
 uint32_t times_days_to_secs(uint32_t days) {
-    return 0;
+    return days * secs_in_day;
 }
 
 uint32_t times_hhmmss_to_secs(uint8_t hour, uint8_t min, uint8_t sec) {
-    return 0;
+    uint32_t secs;
+    secs  = hour * 3600UL;
+    secs += min * 60UL;
+    secs += sec;
+    return secs;
 }
 
 uint32_t times_secs_to_hhmmss(uint32_t secs, uint8_t *hour, uint8_t *min, uint8_t *sec) {
+    uint8_t h, m;
+    h = secs / 3600UL;
+    secs -= h * 3600UL;
+    m = secs / 60UL;
+    secs -= m * 60UL;
+    *hour = h;
+    *min = m;
+    *sec = secs;
     return 0;
 }
 
 uint32_t times_yyyymmdd_hhmmss_to_secs(uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t min, uint8_t sec) {
-    return 0;
+    uint32_t days, secs;
+    days  = times_yyyymmdd_to_days(year, month, day);
+    secs  = times_days_to_secs(days);
+    secs += times_hhmmss_to_secs(hour, min, sec);
+    return secs;
 }
-
+#include <stdio.h>
 uint32_t times_secs_to_yyyymmdd_hhmmss(uint32_t secs, uint16_t *year, uint8_t *month, uint8_t *day, uint8_t *hour, uint8_t *min, uint8_t *sec) {
-    return 0;
+    uint32_t days;
+    days  = times_secs_to_days(secs);
+    secs -= times_days_to_secs(days);
+
+    days = times_days_to_yyyymmdd(days, year, month, day);
+    secs = times_secs_to_hhmmss(secs, hour, min, sec);
+    return secs;
 }

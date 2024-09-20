@@ -12,6 +12,14 @@
 #include <stdbool.h>
 
 /**
+ * brief description
+ * using uint32_t for seconds
+ * max seconds = 2^32 = 4294967296
+ * -> max days = 49710.269.. (86400 secs_in_day)
+ * -> max years =  136.192.. (365 days_in_year, estimate without leap years)
+ */
+
+/**
  * convert a date in yyyy-mm-dd format to days
  * @param   year    eg. 2024
  * @param   month   1: jan, 2: feb, ... 12: dec

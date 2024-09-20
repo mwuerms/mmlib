@@ -591,7 +591,7 @@ int8_t test04(void) {
 }
 
 int8_t test05(void) {
-    printf(" + test045 times_yyyymmdd_to_days() and  times_days_to_yyyymmdd()\n");
+    printf(" + test05 times_yyyymmdd_to_days() and  times_days_to_yyyymmdd()\n");
     uint32_t days_result, days_should, days_left, diff;
     uint16_t year_result, year_should;
     uint8_t  month_result, month_should, day_result, day_should, test_nr;
@@ -783,6 +783,320 @@ int8_t test05(void) {
     return TEST_SUCCESSFUL;
 }
 
+int8_t test06(void) {
+    printf(" + test06 times_days_to_secs() and times_secs_to_days()\n");
+    uint32_t days_result, days_should, secs_result, secs_should, diff;
+    uint8_t  test_nr;
+    
+    test_nr = 1;
+    days_should = 10;
+    secs_should = 10*86400;
+    printf("   + %02d: times_days_to_secs(%d)\n", test_nr, days_should);
+    secs_result = times_days_to_secs(days_should);
+    diff = secs_should - secs_result;
+    printf("     secs\n");
+    printf("       should: %d\n", secs_should);
+    printf("       result: %d\n", secs_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    printf("   + %02d: times_secs_to_days(%d)\n", test_nr, secs_result);
+    days_result = times_secs_to_days(secs_should);
+    diff = days_should - days_result;
+    printf("     days\n");
+    printf("       should: %d\n", days_should);
+    printf("       result: %d\n", days_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    test_nr++;
+    days_should = 45780;
+    secs_should = 45780*86400UL;
+    printf("   + %02d: times_days_to_secs(%u)\n", test_nr, days_should);
+    secs_result = times_days_to_secs(days_should);
+    diff = secs_should - secs_result;
+    printf("     secs\n");
+    printf("       should: %u\n", secs_should);
+    printf("       result: %u\n", secs_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    printf("   + %02d: times_secs_to_days(%u)\n", test_nr, secs_result);
+    days_result = times_secs_to_days(secs_should);
+    diff = days_should - days_result;
+    printf("     days\n");
+    printf("       should: %d\n", days_should);
+    printf("       result: %d\n", days_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    return TEST_SUCCESSFUL;
+}
+
+int8_t test07(void) {
+    printf(" + test07 times_hhmmss_to_secs() and times_secs_to_hhmmss()\n");
+    uint32_t secs_result, secs_should, secs_left, diff;
+    uint8_t  hour_result, hour_should, min_result, min_should, sec_result, sec_should, test_nr;
+    
+    test_nr = 1;
+    hour_should = 10;
+    min_should = 59;
+    sec_should = 37;
+    secs_should = hour_should*3600UL + min_should*60 + sec_should;
+    printf("   + %02d: times_hhmmss_to_secs(%02d:%02d:%02d)\n", test_nr, hour_should, min_should, sec_should);
+    secs_result = times_hhmmss_to_secs(hour_should, min_should, sec_should);
+    diff = secs_should - secs_result;
+    printf("     secs\n");
+    printf("       should: %d\n", secs_should);
+    printf("       result: %d\n", secs_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    printf("   + %02d: times_secs_to_hhmmss(%d)\n", test_nr, secs_result);
+    secs_left = times_secs_to_hhmmss(secs_result, &hour_result, &min_result, &sec_result);
+    diff = hour_should - hour_result;
+    printf("     hour\n");
+    printf("       should: %d\n", hour_should);
+    printf("       result: %d\n", hour_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = min_should - min_result;
+    printf("     min\n");
+    printf("       should: %d\n", min_should);
+    printf("       result: %d\n", min_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = sec_should - sec_result;
+    printf("     sec\n");
+    printf("       should: %d\n", sec_should);
+    printf("       result: %d\n", sec_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    printf("     secs_left:   %d\n", secs_left);
+    if(secs_left != 0) {
+        return TEST_FAILED;
+    }
+    test_nr++;
+    hour_should = 123;
+    min_should = 59;
+    sec_should = 59;
+    secs_should = hour_should*3600UL + min_should*60 + sec_should;
+    printf("   + %02d: times_hhmmss_to_secs(%02d:%02d:%02d)\n", test_nr, hour_should, min_should, sec_should);
+    printf("     this is a valid test, but should not occour\n");
+    secs_result = times_hhmmss_to_secs(hour_should, min_should, sec_should);
+    diff = secs_should - secs_result;
+    printf("     secs\n");
+    printf("       should: %d\n", secs_should);
+    printf("       result: %d\n", secs_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    printf("   + %02d: times_secs_to_hhmmss(%d)\n", test_nr, secs_result);
+    secs_left = times_secs_to_hhmmss(secs_result, &hour_result, &min_result, &sec_result);
+    diff = hour_should - hour_result;
+    printf("     hour\n");
+    printf("       should: %d\n", hour_should);
+    printf("       result: %d\n", hour_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = min_should - min_result;
+    printf("     min\n");
+    printf("       should: %d\n", min_should);
+    printf("       result: %d\n", min_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = sec_should - sec_result;
+    printf("     sec\n");
+    printf("       should: %d\n", sec_should);
+    printf("       result: %d\n", sec_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    printf("     secs_left:   %d\n", secs_left);
+    if(secs_left != 0) {
+        return TEST_FAILED;
+    }
+    test_nr++;
+    return TEST_SUCCESSFUL;
+}
+
+int8_t test08(void) {
+    printf(" + test08 times_yyyymmdd_hhmmss_to_secs() and  times_secs_to_yyyymmdd_hhmmss()\n");
+    uint32_t days_result, days_should, secs_result, secs_should, secs_left, diff;
+    uint16_t year_result, year_should;
+    uint8_t  month_result, month_should, day_result, day_should;
+    uint8_t  hour_result, hour_should, min_result, min_should, sec_result, sec_should, test_nr;
+    
+    test_nr = 1;
+    year_should = 2004;
+    month_should = 5;
+    day_should = 10;
+    hour_should = 17;
+    min_should = 34;
+    sec_should = 10;
+    printf("   + %02d: times_yyyymmdd_hhmmss_to_secs(%d-%02d-%02d %02d:%02d:%02d)\n", test_nr, year_should, month_should, day_should, hour_should, min_should, sec_should);
+    days_should  = 1591;
+    secs_should  = times_days_to_secs(days_should);
+    secs_should += times_hhmmss_to_secs(hour_should, min_should, sec_should);
+    secs_result = times_yyyymmdd_hhmmss_to_secs(year_should, month_should, day_should, hour_should, min_should, sec_should);
+    diff = secs_should - secs_result;
+    printf("     secs\n");
+    printf("       should: %u\n", secs_should);
+    printf("       result: %u\n", secs_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    printf("   + %02d: times_secs_to_yyyymmdd_hhmmss(%d)\n", test_nr, secs_result);
+    test_nr++;
+    secs_left = times_secs_to_yyyymmdd_hhmmss(secs_result, &year_result, &month_result, &day_result, &hour_result, &min_result, &sec_result);
+    diff = year_should - year_result;
+    printf("     year\n");
+    printf("       should: %d\n", year_should);
+    printf("       result: %d\n", year_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = month_should - month_result;
+    printf("     month\n");
+    printf("       should: %d\n", month_should);
+    printf("       result: %d\n", month_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = day_should - day_result;
+    printf("     day\n");
+    printf("       should: %d\n", day_should);
+    printf("       result: %d\n", day_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = hour_should - hour_result;
+    printf("     hour\n");
+    printf("       should: %d\n", hour_should);
+    printf("       result: %d\n", hour_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = min_should - min_result;
+    printf("     min\n");
+    printf("       should: %d\n", min_should);
+    printf("       result: %d\n", min_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = sec_should - sec_result;
+    printf("     sec\n");
+    printf("       should: %d\n", sec_should);
+    printf("       result: %d\n", sec_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    printf("     secs_left:   %d\n", secs_left);
+    if(secs_left != 0) {
+        return TEST_FAILED;
+    }
+    test_nr++;
+    year_should = 2024;
+    month_should = 9;
+    day_should = 20;
+    hour_should = 22;
+    min_should = 52;
+    sec_should = 56;
+    printf("   + %02d: times_yyyymmdd_hhmmss_to_secs(%d-%02d-%02d %02d:%02d:%02d)\n", test_nr, year_should, month_should, day_should, hour_should, min_should, sec_should);
+    days_should  = 9029;
+    secs_should  = times_days_to_secs(days_should);
+    secs_should += times_hhmmss_to_secs(hour_should, min_should, sec_should);
+    secs_result = times_yyyymmdd_hhmmss_to_secs(year_should, month_should, day_should, hour_should, min_should, sec_should);
+    diff = secs_should - secs_result;
+    printf("     secs\n");
+    printf("       should: %u\n", secs_should);
+    printf("       result: %u\n", secs_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    printf("   + %02d: times_secs_to_yyyymmdd_hhmmss(%d)\n", test_nr, secs_result);
+    test_nr++;
+    secs_left = times_secs_to_yyyymmdd_hhmmss(secs_result, &year_result, &month_result, &day_result, &hour_result, &min_result, &sec_result);
+    diff = year_should - year_result;
+    printf("     year\n");
+    printf("       should: %d\n", year_should);
+    printf("       result: %d\n", year_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = month_should - month_result;
+    printf("     month\n");
+    printf("       should: %d\n", month_should);
+    printf("       result: %d\n", month_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = day_should - day_result;
+    printf("     day\n");
+    printf("       should: %d\n", day_should);
+    printf("       result: %d\n", day_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = hour_should - hour_result;
+    printf("     hour\n");
+    printf("       should: %d\n", hour_should);
+    printf("       result: %d\n", hour_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = min_should - min_result;
+    printf("     min\n");
+    printf("       should: %d\n", min_should);
+    printf("       result: %d\n", min_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    diff = sec_should - sec_result;
+    printf("     sec\n");
+    printf("       should: %d\n", sec_should);
+    printf("       result: %d\n", sec_result);
+    printf("       diff:   %d\n", diff);
+    if(diff != 0) {
+        return TEST_FAILED;
+    }
+    printf("     secs_left:   %d\n", secs_left);
+    if(secs_left != 0) {
+        return TEST_FAILED;
+    }
+    return TEST_SUCCESSFUL;
+}
+
 int main(void) {
     printf("testing times functions\n");
     test_eval_result(test01());
@@ -790,6 +1104,8 @@ int main(void) {
     test_eval_result(test03());
     test_eval_result(test04());
     test_eval_result(test05());
-
+    test_eval_result(test06());
+    test_eval_result(test07());
+    test_eval_result(test08());
     return 0;
 }
