@@ -12,6 +12,14 @@ void log_init(void) {
     log_data_init();
 }
 
+void log_start(void) {
+    return;
+}
+
+void log_stop(void) {
+    return;
+}
+
 void log_set_level(uint8_t level) {
     return;
 }

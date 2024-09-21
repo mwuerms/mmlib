@@ -15,4 +15,6 @@
  */
 void log_data_init(void);
 
+
+
 #endif // _MM_LOG_DATA_H_

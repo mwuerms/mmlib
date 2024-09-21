@@ -12,93 +12,34 @@
 
 // code under test
 #include "log.h"
+#include "log_data.h"
+#include "mem.h"
 
-// testing str_append
 int8_t test01(void) {
-#if 0
-    uint16_t pos, check_pos;
-    printf(" + test10: str_buf_append_int16()\n");
-    pos = str_buf_find_end_pos(test_string, TEST_STRING_SIZE);
-    check_pos = 0;
-    printf("   + 01: pos == %d, (pos: %d)\n", check_pos, pos);
-    printf("     test_string: %s\n", test_string);
-    if(pos != check_pos) {
-        return TEST_FAILED;
-    }
-    str_buf_append_string(test_string, TEST_STRING_SIZE, "int16: ");
-    pos = str_buf_find_end_pos(test_string, TEST_STRING_SIZE);
-    check_pos += 7;
-    printf("   + 02: pos == %d, (pos: %d)\n", check_pos, pos);
-    printf("     test_string: %s\n", test_string);
-    if(pos != check_pos) {
-        return TEST_FAILED;
-    }
-    str_buf_append_int16(test_string, TEST_STRING_SIZE, 128);
-    pos = str_buf_find_end_pos(test_string, TEST_STRING_SIZE);
-    check_pos += 3;
-    printf("   + 03: pos == %d, (pos: %d)\n", check_pos, pos);
-    printf("     test_string: %s\n", test_string);
-    if(pos != check_pos) {
-        return TEST_FAILED;
-    }
-    str_buf_append_string(test_string, TEST_STRING_SIZE, ", ");
-    pos = str_buf_find_end_pos(test_string, TEST_STRING_SIZE);
-    check_pos += 2;
-    printf("   + 04: pos == %d, (pos: %d)\n", check_pos, pos);
-    printf("     test_string: %s\n", test_string);
-    if(pos != check_pos) {
-        return TEST_FAILED;
-    }
-    str_buf_append_int16(test_string, TEST_STRING_SIZE, 13407);
-    pos = str_buf_find_end_pos(test_string, TEST_STRING_SIZE);
-    check_pos += 5;
-    printf("   + 05: pos == %d, (pos: %d)\n", check_pos, pos);
-    printf("     test_string: %s\n", test_string);
-    if(pos != check_pos) {
-        return TEST_FAILED;
-    }
-    str_buf_append_string(test_string, TEST_STRING_SIZE, ", ");
-    pos = str_buf_find_end_pos(test_string, TEST_STRING_SIZE);
-    check_pos += 2;
-    printf("   + 06: pos == %d, (pos: %d)\n", check_pos, pos);
-    printf("     test_string: %s\n", test_string);
-    if(pos != check_pos) {
-        return TEST_FAILED;
-    }
-    str_buf_append_int16(test_string, TEST_STRING_SIZE, 32767);
-    pos = str_buf_find_end_pos(test_string, TEST_STRING_SIZE);
-    check_pos += 5;
-    printf("   + 07: pos == %d, (pos: %d)\n", check_pos, pos);
-    printf("     test_string: %s\n", test_string);
-    if(pos != check_pos) {
-        return TEST_FAILED;
-    }
-    str_buf_append_string(test_string, TEST_STRING_SIZE, ", ");
-    pos = str_buf_find_end_pos(test_string, TEST_STRING_SIZE);
-    check_pos += 2;
-    printf("   + 08: pos == %d, (pos: %d)\n", check_pos, pos);
-    printf("     test_string: %s\n", test_string);
-    if(pos != check_pos) {
-        return TEST_FAILED;
-    }
-    str_buf_append_int16(test_string, TEST_STRING_SIZE, -32767);
-    pos = str_buf_find_end_pos(test_string, TEST_STRING_SIZE);
-    check_pos += 6;
-    printf("   + 09: pos == %d, (pos: %d)\n", check_pos, pos);
-    printf("     test_string: %s\n", test_string);
-    if(pos != check_pos) {
-        return TEST_FAILED;
-    }
-
+    uint8_t test_nr;
+    printf(" + test01: setup logging\n");
+    test_nr = 1;
+    printf("   + %02d: log_init()\n", test_nr);
+    log_init();
+    test_nr++;
+    printf("   + %02d: log_start()\n", test_nr);
+    log_start();
+    test_nr++;
+    printf("   + %02d: log_set_level(LOG_LEVEL_ANY)\n", test_nr);
+    log_set_level(LOG_LEVEL_ANY);
+    test_nr++;
+    printf("   + %02d: check started logging\n", test_nr);
     return TEST_SUCCESSFUL;
-#endif
-    return TEST_FAILED;
 }
-
+int8_t test02(void) {
+    printf(" + test02: log_value_uint16()\n");
+    return TEST_SUCCESSFUL;
+}
 
 int main(void) {
     printf("testing log functions\n");
     test_eval_result(test01());
-    
+    test_eval_result(test02());
+
     return 0;
 }

@@ -6,7 +6,7 @@
  */
 
 #include "log_data.h"
-#include "timestamp.h"
+#include "times.h"
 #include "mem.h"
 
 void log_data_init(void) {

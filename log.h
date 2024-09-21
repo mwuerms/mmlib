@@ -16,6 +16,16 @@
 void log_init(void);
 
 /**
+ * start the log
+ */
+void log_start(void);
+
+/**
+ * stop the log
+ */
+void log_stop(void);
+
+/**
  * set the log level
  * @param   level   to set
  */
