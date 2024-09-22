@@ -9,6 +9,7 @@
 #define _MM_LOG_H_
 
 #include <stdint.h>
+#include "mmlib.h"
 
 /**
  * initialize the log
@@ -30,32 +31,52 @@ void log_stop(void);
  * @param   level   to set
  */
 #define LOG_LEVEL_ANY (0)
+#define LOG_LEVEL_ANY_CHAR 'A'
 #define LOG_LEVEL_DEBUG (1) 
+#define LOG_LEVEL_DEBUG_CHAR 'D'
 #define LOG_LEVEL_INFO (2)
+#define LOG_LEVEL_INFO_CHAR 'I'
 #define LOG_LEVEL_WARNING (3)
+#define LOG_LEVEL_WARNING_CHAR 'W'
 #define LOG_LEVEL_ERROR (4)
+#define LOG_LEVEL_ERROR_CHAR 'E'
+#define LOG_LEVEL_VALUE (5)
+#define LOG_LEVEL_VALUE_CHAR 'V'
+#define LOG_LEVEL_MAX LOG_LEVEL_VALUE
+
 void log_set_level(uint8_t level);
 
 /**
  * add a uint16_t value to the log
- * @param   name    of the value
+ * always level value
  * @param   value   to log
+ * @param   name4   of the value, max 4 chars
  */
-void log_value_uint16(char *name, uint16_t value);
+void log_uint16_value(uint16_t value, char *name4);
 
 /**
  * add a uint32_t value to the log
- * @param   name    of the value
+ * always level value
  * @param   value   to log
+ * @param   name4   of the value, max 4 chars
  */
-void log_value_uint32(char *name, uint32_t value);
+void log_uint32_value(uint32_t value, char *name4);
 
 /**
  * add a float value to the log
- * @param   name    of the value
+ * always level value
  * @param   value   to log
+ * @param   name4   of the value, max 4 chars
  */
-void log_value_float(char *name, float value);
+void log_float_value(float value, char *name4);
+
+/**
+ * add a message to the log, filter by given level
+ * level, log only >= current level
+ * @param   msg     message to log
+ * @param   level   see. LOG_LEVEL_
+ */
+void log_msg(char *str, uint8_t level);
 
 /**
  * clear the whole log
@@ -64,10 +85,27 @@ void log_clear_all(void);
 
 /**
  * read all log as csv to destination, line
+ * log_stop() before read
+ * "timestamp(YYYY-MM-DD HH:MM:SS.000);Level;Data"
+ * @param   dest    where to send the data, eg. uart
+ * @param   sep     seperator to use, standard is ';'
+ */
+void log_read_all_as_csv(uint8_t dest);
+
+/**
+ * read all log as csv to destination, line
  * "timestamp(YYYY-MM-DD HH:MM:SS.000);ID;Name;value"
  * @param   dest    where to send the data, eg. uart
  * @param   sep     seperator to use, standard is ';'
  */
-void log_read_all_as_csv(uint8_t dest, char sep);
+#define LOG_READ_LEVEL_MASK_ALL (0xFF)
+#define LOG_READ_LEVEL_MASK_DEBUG BITV(1)
+#define LOG_READ_LEVEL_MASK_INFO BITV(2)
+#define LOG_READ_LEVEL_MASK_WARNING BITV(3)
+#define LOG_READ_LEVEL_MASK_ERROR BITV(4)
+#define LOG_READ_LEVEL_MASK_VALUE BITV(5)
+#define LOG_READ_TIME_FORMAT_SECS (0)
+#define LOG_READ_TIME_FORMAT_YYYMMDD_HHMMSS (1)
+void log_read_as_csv(uint8_t dest, uint8_t level_mask, uint8_t time_format, char sep);
 
 #endif // _MM_LOG_H_

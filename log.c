@@ -8,32 +8,101 @@
 #include "log.h"
 #include "log_data.h"
 
+static uint32_t log_last_time;
+static uint32_t log_current_time;
+static uint8_t  log_level = LOG_LEVEL_ANY;
+
+// dummy function to get a valid time for testing, replace later by something propper
+static uint32_t _current_time = 0;
+static uint32_t __get_current_time(void) {
+    _current_time++;
+    return _current_time;
+}
+
 void log_init(void) {
+    log_level = LOG_LEVEL_ANY;
     log_data_init();
 }
 
 void log_start(void) {
+    log_data_start();
+    log_last_time = __get_current_time();
+    log_add_info(0x1234, 0x0101);
+    log_data_add_time(log_last_time);
     return;
 }
 
 void log_stop(void) {
+    log_data_stop();
     return;
 }
 
 void log_set_level(uint8_t level) {
+    if(level > LOG_LEVEL_MAX) {
+        level = LOG_LEVEL_MAX;
+    }
+    log_level = level;
+}
+
+// call periodically, approx every 10000s (difft in uint16_t)
+void log_time(void) {
+    // log time always if(level < log_level)
+    log_last_time = __get_current_time();
+    log_data_add_time(log_last_time);
     return;
 }
 
-void log_value_uint16(char *name, uint16_t value) {
+void log_uint16_value(uint16_t value, char *name4) {
+    uint16_t tdiff;
+    // log values always if(level < log_level)
+    // calc tdiff
+    log_current_time = __get_current_time();
+    tdiff = (uint16_t)(log_current_time - log_last_time);
+    log_data_add_u16_value_name(tdiff, LOG_LEVEL_VALUE_CHAR, value, name4);
     return;
 }
 
-void log_value_uint32(char *name, uint32_t value) {
+void log_uint32_value(uint32_t value, char *name4) {
+    uint16_t tdiff;
+    // log values always if(level < log_level)
+    // calc tdiff
+    log_current_time = __get_current_time();
+    tdiff = (uint16_t)(log_current_time - log_last_time);
+    log_data_add_u16_value_name(tdiff, LOG_LEVEL_VALUE_CHAR, value, name4);
     return;
 }
 
-void log_value_float(char *name, float value) {
+void log_float_value(float value, char *name4) {
+    uint16_t tdiff;
+    // log values always if(level < log_level)
+    // calc tdiff
+    log_current_time = __get_current_time();
+    tdiff = (uint16_t)(log_current_time - log_last_time);
+    log_data_add_u16_value_name(tdiff, LOG_LEVEL_VALUE_CHAR, value, name4);
     return;
 }
 
+static char log_level_chars[] = {'A', 'D', 'I', 'W', 'E', 'V'};
+void log_msg(char *str, uint8_t level) {
+    uint16_t tdiff;
+    char level_char;
+    if(level < log_level) {
+        // skip
+        return;
+    }
+    // calc tdiff
+    log_current_time = __get_current_time();
+    tdiff = (uint16_t)(log_current_time - log_last_time);
+    level_char = log_level_chars[level];
+    log_data_add_string(tdiff, level_char, str);
+}
 
+void log_read_all_as_csv(uint8_t dest) {
+    log_read_as_csv(0, LOG_READ_LEVEL_MASK_ALL, LOG_READ_TIME_FORMAT_YYYMMDD_HHMMSS, ';');
+}
+
+#include <stdio.h>
+void log_read_as_csv(uint8_t dest, uint8_t level_mask, uint8_t time_format, char sep) {
+    // header
+    printf("time;level;data\n");
+}
