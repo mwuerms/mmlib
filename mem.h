@@ -19,6 +19,8 @@ void mem_start(uint32_t time);
 void mem_stop(void);
 uint16_t mem_add_data_to_page_wr_buffer(uint8_t *data, uint16_t data_len);
 
+uint8_t *mem_read_page(uint16_t page_addr, uint16_t *data_length);
+
 void mem_wr_page_buffer_print_hex(void);
 
 #endif // _MM_MEM_H_

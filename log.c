@@ -20,14 +20,15 @@ static uint32_t __get_current_time(void) {
 }
 
 void log_init(void) {
+    _current_time = 1234;
     log_level = LOG_LEVEL_INFO;
     log_data_init();
 }
 
 void log_start(void) {
-    log_data_start();
     log_last_time = __get_current_time();
-    log_data_add_time(log_last_time);
+    log_last_time = 1234;
+    log_data_start(log_last_time);
     return;
 }
 
@@ -67,7 +68,7 @@ void log_uint32_value(uint32_t value, uint8_t name_code) {
     // calc tdiff
     log_current_time = __get_current_time();
     tdiff = (uint16_t)(log_current_time - log_last_time);
-    log_data_add_u16_value(tdiff, value, name_code);
+    log_data_add_u32_value(tdiff, value, name_code);
     return;
 }
 
@@ -77,7 +78,7 @@ void log_float_value(float value, uint8_t name_code) {
     // calc tdiff
     log_current_time = __get_current_time();
     tdiff = (uint16_t)(log_current_time - log_last_time);
-    log_data_add_u16_value(tdiff, value, name_code);
+    log_data_add_float_value(tdiff, value, name_code);
     return;
 }
 
@@ -103,4 +104,5 @@ void log_read_all_as_csv(uint8_t dest) {
 void log_read_as_csv(uint8_t dest, uint8_t level_mask, uint8_t time_format, char sep) {
     // header
     printf("time;level;data\n");
+    log_data_read_mem_page();
 }

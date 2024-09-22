@@ -3,6 +3,7 @@
  * 2024-09-18
  * mmlib https://github.com/mwuerms/mmlib
  * mem functions
+ * *little endian*
  */
 #include <stdbool.h>
 #include <stddef.h>
@@ -57,8 +58,8 @@ void mem_new_page(void) {
     mem_page_wr_pos = 0;
     // calc mem_ovf
     mem_page_wr_buffer[mem_page_wr_pos++] = mem_ovf + mem_version;
-    mem_page_wr_buffer[mem_page_wr_pos++] = ((uint8_t *)&mem_page_start_address)[1];
     mem_page_wr_buffer[mem_page_wr_pos++] = ((uint8_t *)&mem_page_start_address)[0];
+    mem_page_wr_buffer[mem_page_wr_pos++] = ((uint8_t *)&mem_page_start_address)[1];
     return;
 }
 
@@ -121,6 +122,17 @@ void mem_start(uint32_t time) {
 void mem_stop(void) {
     mem_ctrl &= ~MEM_CTRL_ACTIVE;
 }
+
+
+#include <stdio.h>
+uint8_t *mem_read_page(uint16_t page_addr, uint16_t *data_length) {
+    printf("mem_read_page()\n");
+    printf(" + mem_page_wr_buffer: %p\n", mem_page_wr_buffer);
+    *data_length = MEM_PAGE_SIZE;
+    printf(" + data_length: %d\n", *data_length);
+    return mem_page_wr_buffer;
+}
+
 
 // debug function
 #include <stdio.h>
