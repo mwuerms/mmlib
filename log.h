@@ -30,17 +30,13 @@ void log_stop(void);
  * set the log level
  * @param   level   to set
  */
-#define LOG_LEVEL_ANY (0)
-#define LOG_LEVEL_ANY_CHAR 'A'
-#define LOG_LEVEL_DEBUG (1) 
-#define LOG_LEVEL_DEBUG_CHAR 'D'
-#define LOG_LEVEL_INFO (2)
+#define LOG_LEVEL_INFO (0)
 #define LOG_LEVEL_INFO_CHAR 'I'
-#define LOG_LEVEL_WARNING (3)
+#define LOG_LEVEL_WARNING (1)
 #define LOG_LEVEL_WARNING_CHAR 'W'
-#define LOG_LEVEL_ERROR (4)
+#define LOG_LEVEL_ERROR (2)
 #define LOG_LEVEL_ERROR_CHAR 'E'
-#define LOG_LEVEL_VALUE (5)
+#define LOG_LEVEL_VALUE (3)
 #define LOG_LEVEL_VALUE_CHAR 'V'
 #define LOG_LEVEL_MAX LOG_LEVEL_VALUE
 
@@ -52,7 +48,7 @@ void log_set_level(uint8_t level);
  * @param   value   to log
  * @param   name4   of the value, max 4 chars
  */
-void log_uint16_value(uint16_t value, char *name4);
+void log_uint16_value(uint16_t value, uint8_t name_code);
 
 /**
  * add a uint32_t value to the log
@@ -60,7 +56,7 @@ void log_uint16_value(uint16_t value, char *name4);
  * @param   value   to log
  * @param   name4   of the value, max 4 chars
  */
-void log_uint32_value(uint32_t value, char *name4);
+void log_uint32_value(uint32_t value, uint8_t name_code);
 
 /**
  * add a float value to the log
@@ -68,15 +64,15 @@ void log_uint32_value(uint32_t value, char *name4);
  * @param   value   to log
  * @param   name4   of the value, max 4 chars
  */
-void log_float_value(float value, char *name4);
+void log_float_value(float value, uint8_t name_code);
 
 /**
  * add a message to the log, filter by given level
  * level, log only >= current level
- * @param   msg     message to log
- * @param   level   see. LOG_LEVEL_
+ * @param   level       see. LOG_LEVEL_
+ * @param   msg_code    message code to log
  */
-void log_msg(char *str, uint8_t level);
+void log_msg_code(uint8_t level, uint8_t msg_code);
 
 /**
  * clear the whole log

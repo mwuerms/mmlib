@@ -26,7 +26,7 @@ int8_t test01(void) {
     log_start();
     test_nr++;
     printf("   + %02d: log_set_level(LOG_LEVEL_ANY)\n", test_nr);
-    log_set_level(LOG_LEVEL_ANY);
+    log_set_level(LOG_LEVEL_INFO);
     test_nr++;
     printf("   + %02d: check started logging\n", test_nr);
     return TEST_SUCCESSFUL;
@@ -41,5 +41,6 @@ int main(void) {
     test_eval_result(test01());
     test_eval_result(test02());
 
+    mem_wr_page_buffer_print_hex();
     return 0;
 }

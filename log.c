@@ -10,7 +10,7 @@
 
 static uint32_t log_last_time;
 static uint32_t log_current_time;
-static uint8_t  log_level = LOG_LEVEL_ANY;
+static uint8_t  log_level = LOG_LEVEL_INFO;
 
 // dummy function to get a valid time for testing, replace later by something propper
 static uint32_t _current_time = 0;
@@ -20,14 +20,13 @@ static uint32_t __get_current_time(void) {
 }
 
 void log_init(void) {
-    log_level = LOG_LEVEL_ANY;
+    log_level = LOG_LEVEL_INFO;
     log_data_init();
 }
 
 void log_start(void) {
     log_data_start();
     log_last_time = __get_current_time();
-    log_add_info(0x1234, 0x0101);
     log_data_add_time(log_last_time);
     return;
 }
@@ -52,49 +51,48 @@ void log_time(void) {
     return;
 }
 
-void log_uint16_value(uint16_t value, char *name4) {
+void log_uint16_value(uint16_t value, uint8_t name_code) {
     uint16_t tdiff;
     // log values always if(level < log_level)
     // calc tdiff
     log_current_time = __get_current_time();
     tdiff = (uint16_t)(log_current_time - log_last_time);
-    log_data_add_u16_value_name(tdiff, LOG_LEVEL_VALUE_CHAR, value, name4);
+    log_data_add_u16_value(tdiff, value, name_code);
     return;
 }
 
-void log_uint32_value(uint32_t value, char *name4) {
+void log_uint32_value(uint32_t value, uint8_t name_code) {
     uint16_t tdiff;
     // log values always if(level < log_level)
     // calc tdiff
     log_current_time = __get_current_time();
     tdiff = (uint16_t)(log_current_time - log_last_time);
-    log_data_add_u16_value_name(tdiff, LOG_LEVEL_VALUE_CHAR, value, name4);
+    log_data_add_u16_value(tdiff, value, name_code);
     return;
 }
 
-void log_float_value(float value, char *name4) {
+void log_float_value(float value, uint8_t name_code) {
     uint16_t tdiff;
     // log values always if(level < log_level)
     // calc tdiff
     log_current_time = __get_current_time();
     tdiff = (uint16_t)(log_current_time - log_last_time);
-    log_data_add_u16_value_name(tdiff, LOG_LEVEL_VALUE_CHAR, value, name4);
+    log_data_add_u16_value(tdiff, value, name_code);
     return;
 }
 
-static char log_level_chars[] = {'A', 'D', 'I', 'W', 'E', 'V'};
-void log_msg(char *str, uint8_t level) {
+void log_msg_code(uint8_t level, uint8_t msg_code) {
     uint16_t tdiff;
     char level_char;
     if(level < log_level) {
         // skip
         return;
     }
+    // CHECK LEVEL level
     // calc tdiff
     log_current_time = __get_current_time();
     tdiff = (uint16_t)(log_current_time - log_last_time);
-    level_char = log_level_chars[level];
-    log_data_add_string(tdiff, level_char, str);
+    log_data_add_level_code(tdiff, level, msg_code);
 }
 
 void log_read_all_as_csv(uint8_t dest) {
