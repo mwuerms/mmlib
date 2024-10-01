@@ -3,13 +3,13 @@
  * 2023-09-02
  * mmlib https://github.com/mwuerms/mmlib
  * testing fifo functions
- * + compile: gcc fifo.c testfifo.c ../test/test.c -o testfifo.exe
+ * + compile: gcc ../fifo.c fifotest.c test.c -o testfifo.exe
  * + run: ./testfifo.exe
  */
 
-#include "fifo.h"
+#include "../fifo.h"
 #include <stdio.h>
-#include "../test/test.h"
+#include "test.h"
 
 char *get_bool_string(uint8_t b) {
     if(b == true)
@@ -92,7 +92,14 @@ int8_t test02(void) {
     uint16_t test02_cnt = 0; 
     uint8_t res;
     printf(" + test02: fifo_try_append() and fifo_finalize_append()\n");
-    
+    printf("     print ");
+    print_fifo_ctrl(&test_fifo, "test_fifo");
+    printf("   + 00: call fifo_try_get(), just get result\n");
+    res = fifo_try_get(&test_fifo);
+    printf("     result: %s\n", get_bool_string(res));
+    printf("     print ");
+    print_fifo_ctrl(&test_fifo, "test_fifo");
+
     printf("   + 01: call fifo_try_append(), this should work (return true)\n");
     res = fifo_try_append(&test_fifo);
     printf("     result: %s\n", get_bool_string(res));

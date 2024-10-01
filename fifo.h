@@ -81,6 +81,20 @@ uint16_t fifo_try_get(fifo_t *f);
  */
 uint16_t fifo_finalize_get(fifo_t *f);
 
+/**
+ * calc the next position index (pos)
+ * @param   pos     current position
+ * @param   size    to calc maximum
+ * @return  next position
+ */
+uint16_t fifo_next_pos(uint16_t pos, uint16_t size);
 
+/**
+ * calc the previous position index (pos)
+ * @param   pos     current position
+ * @param   size    to calc maximum
+ * @return  previous position
+ */
+uint16_t fifo_prev_pos(uint16_t pos, uint16_t size);
 
 #endif // _MM_FIFO_H_
