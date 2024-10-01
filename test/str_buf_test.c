@@ -3,15 +3,15 @@
  * 2023-05-03
  * mmlib https://github.com/mwuerms/mmlib
  * testing sting functions
- * + compile: gcc str_buf.c str_buf_test.c test.c -o str_buf_test.exe
- * + run: ./str_buf_test.exe
+ * + compile: gcc ../str_buf.c str_buf_test.c test.c -o str_buf_test
+ * + run: ./str_buf_test
  */
 
 #include <stdio.h>
 #include "test.h"
 
 // code under test
-#include "str_buf.h"
+#include "../str_buf.h"
 
 #define TEST_STRING_SIZE  128
 char test_string[TEST_STRING_SIZE];

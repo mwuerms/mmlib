@@ -3,8 +3,8 @@
  * 2023-09-02
  * mmlib https://github.com/mwuerms/mmlib
  * testing fifo functions
- * + compile: gcc ../fifo.c fifotest.c test.c -o testfifo.exe
- * + run: ./testfifo.exe
+ * + compile: gcc ../fifo.c fifo_test.c test.c -o fifo_test
+ * + run: ./fifo_test
  */
 
 #include "../fifo.h"

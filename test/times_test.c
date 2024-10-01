@@ -3,15 +3,15 @@
  * 2024-09-18
  * mmlib https://github.com/mwuerms/mmlib
  * testing log functions
- * + compile: gcc times.c times_test.c test.c -o times_test.exe
- * + run: ./times_test.exe
+ * + compile: gcc ../times.c times_test.c test.c -o times_test
+ * + run: ./times_test
  */
 
 #include <stdio.h>
 #include "test.h"
 
 // code under test
-#include "times.h"
+#include "../times.h"
 
 int8_t test01(void) {
     printf(" + test01: times_yyyy_to_days()\n");
