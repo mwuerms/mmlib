@@ -1,12 +1,12 @@
-/*
- * utils.h
- *
- *  Created on: Feb 26, 2026
- *      Author: m.egli
+/**
+ * Martin Egli
+ * 2026-04-28
+ * mmlib https://github.com/mwuerms/mmlib
+ * utilities
  */
 
-#ifndef INC_UTILS_H_
-#define INC_UTILS_H_
+#ifndef INC_MM_UTILS_H_
+#define INC_MM_UTILS_H_
 
 #ifndef BITV
 #define BITV(x) (1 << x)
@@ -27,6 +27,4 @@ __disable_irq();            // Disable all interrupts
 __set_PRIMASK(primask);     // Restore previous interrupt state
 */
 
-
-
-#endif /* INC_UTILS_H_ */
+#endif /* INC_MM_UTILS_H_ */
