@@ -79,7 +79,7 @@ uint16_t str_buf_append_char(char *str, uint16_t str_size, char c) {
         return str_size;
     }
     pos = str_buf_find_end_pos(str, str_size);
-    return str_buf_append_char_inc_pos(str, str_size, pos, c);
+    return str_buf_append_char_inc_pos(&str[pos], str_size, pos, c);
 }
 
 uint16_t str_buf_append_string(char *str, uint16_t str_size, char *str_append) {
