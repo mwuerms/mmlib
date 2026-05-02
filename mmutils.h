@@ -14,6 +14,10 @@
 #error BITV defined, check for compatibility
 #endif
 
+#define NB_ELEMENTS(x)	(sizeof(x)/sizeof(x[0]))
+
+#define RAD_TO_DEG	(180.0f/M_PI)
+
 /* template to use later on
 uint32_t primask;
 
